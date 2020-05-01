@@ -5,6 +5,9 @@ Powered by Vite
 ## Setup
 
 ```
+yarn create vite-app test-vca-firebase
+cd test-vca-firebase
+yarn add firebase
 yarn add vca-firebase
 ```
 
@@ -29,7 +32,7 @@ export default {
 };
 ```
 
-Add to html:
+Add to the top of `index.html`:
 
 ```html
 <script src="/node_modules/firebase/firebase.js"></script>
