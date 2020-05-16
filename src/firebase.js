@@ -12,7 +12,7 @@ export function useFirebase() {
   return result;
 }
 
-export function provideFirebase(options) {
+export function provideFirebase(firebase, options) {
   if (firebase.apps.length > 0) {
     return;
   }

@@ -11,7 +11,7 @@ import { initFirebase, useAuth, useCollection, useDoc } from "./src/index.js";
 
 export default {
   setup() {
-    initFirebase(firebaseConfig);
+    initFirebase(firebase, firebaseConfig);
 
     const { uid, signInWithGoogle } = useAuth();
     const { docs: accounts } = useCollection("accounts");
