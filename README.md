@@ -13,25 +13,25 @@ Powered by Vite
 </template>
 
 <script>
-  import { initFirebase, useAuth, useCollection, useDoc } from "vca-firebase";
-  import firebaseConfig from "./firebase.config.js";
+  import { initFirebase, useAuth, useCollection, useDoc } from 'vca-firebase'
+  import firebaseConfig from './firebase.config.js'
 
   export default {
     setup() {
-      initFirebase(firebaseConfig);
+      initFirebase(firebase, firebaseConfig)
 
-      const { uid, signInWithGoogle } = useAuth();
-      const { docs: accounts } = useCollection("accounts");
-      const { create: createAccount } = useDoc("accounts");
+      const { uid, signInWithGoogle } = useAuth()
+      const { docs: accounts } = useCollection('accounts')
+      const { create: createAccount } = useDoc('accounts')
 
       return {
         signInWithGoogle,
         uid,
         accounts,
         createAccount,
-      };
+      }
     },
-  };
+  }
 </script>
 ```
 
@@ -62,13 +62,7 @@ export default {
     measurementId,
   },
   analytics: false,
-};
-```
-
-Add to the top of `index.html`:
-
-```html
-<script src="/node_modules/firebase/firebase.js"></script>
+}
 ```
 
 ## Development

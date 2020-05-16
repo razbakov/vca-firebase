@@ -6,23 +6,23 @@
 </template>
 
 <script>
-import firebaseConfig from "./firebase.config.js";
-import { initFirebase, useAuth, useCollection, useDoc } from "./src/index.js";
+import firebaseConfig from './firebase.config.js'
+import { initFirebase, useAuth, useCollection, useDoc } from './src/index.js'
 
 export default {
   setup() {
-    initFirebase(firebase, firebaseConfig);
+    initFirebase(firebaseConfig)
 
-    const { uid, signInWithGoogle } = useAuth();
-    const { docs: accounts } = useCollection("accounts");
-    const { create: createAccount } = useDoc("accounts");
+    const { uid, signInWithGoogle } = useAuth()
+    const { docs: accounts } = useCollection('accounts')
+    const { create: createAccount } = useDoc('accounts')
 
     return {
       signInWithGoogle,
       uid,
       accounts,
       createAccount,
-    };
+    }
   },
-};
+}
 </script>
