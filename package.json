@@ -12,11 +12,11 @@
     "build": "vite build"
   },
   "dependencies": {
-    "firebase": "^7.14.2",
-    "vue": "^3.0.0-beta.4"
+    "firebase": "^7.23.0",
+    "vue": "^3.0.0"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.0.0-beta.4",
-    "vite": "^0.15.3"
+    "@vue/compiler-sfc": "^3.0.0",
+    "vite": "^1.0.0-rc.4"
   }
 }
