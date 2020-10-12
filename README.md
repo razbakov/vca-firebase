@@ -2,6 +2,8 @@
 
 Powered by Vite
 
+Also checkout a fork [Firebase Composition for Nuxt](https://github.com/razbakov/nuxt-firebase-composition)
+
 ## Usage
 
 ```html
