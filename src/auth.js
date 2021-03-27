@@ -1,6 +1,4 @@
 import { reactive, toRefs, provide, inject } from 'vue'
-import { useFirebase } from './firebase.js'
-import 'firebase/auth'
 
 const AuthSymbol = Symbol('FirebaseAuth')
 
@@ -14,8 +12,9 @@ export function useAuth() {
   return result
 }
 
-export function provideAuth() {
-  const { firebase } = useFirebase()
+export function provideAuth(firebase, app) {
+
+  const provideFn = app ? app.provide : provide;
 
   const state = reactive({
     loading: true,
@@ -76,7 +75,7 @@ export function provideAuth() {
     firebase.auth().signInWithRedirect(provider)
   }
 
-  provide(AuthSymbol, {
+  provideFn(AuthSymbol, {
     ...toRefs(state),
     signInWithGoogle,
     sendSignInLinkToEmail,

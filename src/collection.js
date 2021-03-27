@@ -4,8 +4,9 @@ import { useAuth } from './auth.js'
 
 const CollectionSymbol = Symbol('FirebaseCollection')
 
-export function provideCollections() {
-  provide(CollectionSymbol, reactive({}))
+export function provideCollections(app) {
+  const provideFn = app ? app.provide : provide;
+  provideFn(CollectionSymbol, reactive({}))
 }
 
 export function useCollection(name, filter) {
