@@ -2,25 +2,9 @@
 
 Powered by Vite
 
-Also checkout a fork [Firebase Composition for Nuxt](https://github.com/razbakov/nuxt-firebase-composition)
+Also checkout [Firebase Composition for Nuxt](https://github.com/razbakov/nuxt-firebase-composition)
 
 ## Usage
-
-### Init the plugin in the main.js file
-
-```js
-// main.js
-import { createApp } from 'vue'
-import App from './App.vue'
-import FirebasePlugin from './src/index.js'
-import firebaseConfig from './firebase.config.js'
-
-const app = createApp(App)
-app.use(FirebasePlugin, firebaseConfig)
-app.mount('#app')
-```
-
-### In the view or component
 
 ```html
 <!-- SomeComponent.vue-->
@@ -83,6 +67,19 @@ export default {
   },
   analytics: false,
 }
+```
+
+Init the plugin in the `src/main.js` file:
+
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+import FirebasePlugin from 'vca-firebase'
+import firebaseConfig from '../firebase.config.js'
+
+const app = createApp(App)
+app.use(FirebasePlugin, firebaseConfig)
+app.mount('#app')
 ```
 
 ## Development
