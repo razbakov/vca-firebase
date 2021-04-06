@@ -1,6 +1,6 @@
 <template>
   <div>UID: {{ uid }}</div>
-  <pre v-show="uid !== null">{{ accounts }}</pre>
+  <pre>{{ accounts }}</pre>
   <button @click="signInAnonymously">Sign In Anonymously</button>
   <button @click="signInWithGoogle">Sign In with Google</button>
   <button @click="createAccount({ name: 'Join' })">Add</button>
@@ -15,8 +15,8 @@ export default {
     const { uid, signInWithGoogle, signInAnonymously, signOut } = useAuth()
     const { docs: accounts } = useCollection('accounts')
     const { create: createAccount } = useDoc('accounts')
-    
-       return {
+
+    return {
       signInWithGoogle,
       signInAnonymously,
       signOut,
