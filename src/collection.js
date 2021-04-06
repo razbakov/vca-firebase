@@ -1,4 +1,4 @@
-import { computed, toRefs, watchEffect, reactive, inject, provide } from 'vue'
+import { computed, toRefs, watchEffect, reactive, inject } from 'vue'
 import { useFirebase } from './firebase.js'
 
 const CollectionSymbol = Symbol('FirebaseCollection')
