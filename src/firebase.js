@@ -1,5 +1,7 @@
 import { provide, inject } from 'vue'
-import firebase from 'firebase';
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/auth'
 
 const FirebaseSymbol = Symbol('Firebase')
 
@@ -51,6 +53,6 @@ export function getFirebase(options) {
 }
 
 export function provideFirebase(firebaseApp, app) {
-  const provideFn = app ? app.provide : provide;
+  const provideFn = app ? app.provide : provide
   provideFn(FirebaseSymbol, firebaseApp)
 }

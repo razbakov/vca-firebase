@@ -5,47 +5,28 @@ Powered by Vite
 Also checkout a fork [Firebase Composition for Nuxt](https://github.com/razbakov/nuxt-firebase-composition)
 
 ## Usage
+
 ### Init the plugin in the main.js file
+
 ```js
-//main.js
+// main.js
 import { createApp } from 'vue'
 import App from './App.vue'
-import { InitFirebasePlugin } from 'vca-firebase'
+import FirebasePlugin from './src/index.js'
 import firebaseConfig from './firebase.config.js'
 
 const app = createApp(App)
-app.use(InitFirebasePlugin, firebaseConfig)
+app.use(FirebasePlugin, firebaseConfig)
 app.mount('#app')
-``` 
-Or with no plugin
-### In App.vue 
-```html
-<!-- App.vue-->
-<template>
-  <SomeComponents/>
-</template>
-
-<script>
-  import { initFirebase} from 'vca-firebase'
-  import firebaseConfig from './firebase.config.js'
-
-  export default {
-    setup() {
-      initFirebase(firebase, firebaseConfig)
-
-      return {
-      }
-    },
-  }
-</script>
 ```
 
 ### In the view or component
+
 ```html
 <!-- SomeComponent.vue-->
 <template>
   <div>UID: {{ uid }}</div>
-  <pre v-show="uid !== null">{{ accounts }}</pre>
+  <pre>{{ accounts }}</pre>
   <button @click="signInAnonymously">Sign In Anonymously</button>
   <button @click="signInWithGoogle">Sign In with Google</button>
   <button @click="createAccount({ name: 'Join' })">Add</button>
@@ -53,24 +34,24 @@ Or with no plugin
 </template>
 
 <script>
-import { useAuth, useCollection, useDoc } from 'vca-firebase'
+  import { useAuth, useCollection, useDoc } from 'vca-firebase'
 
-export default {
-  setup() {
-    const { uid, signInWithGoogle, signInAnonymously, signOut } = useAuth()
-    const { docs: accounts } = useCollection('accounts')
-    const { create: createAccount } = useDoc('accounts')
-    
-       return {
-      signInWithGoogle,
-      signInAnonymously,
-      signOut,
-      uid,
-      accounts,
-      createAccount,
-    }
-  },
-}
+  export default {
+    setup() {
+      const { uid, signInWithGoogle, signInAnonymously, signOut } = useAuth()
+      const { docs: accounts } = useCollection('accounts')
+      const { create: createAccount } = useDoc('accounts')
+
+      return {
+        signInWithGoogle,
+        signInAnonymously,
+        signOut,
+        uid,
+        accounts,
+        createAccount,
+      }
+    },
+  }
 </script>
 ```
 
