@@ -1,22 +1,19 @@
 import { computed, toRefs, watchEffect, reactive, inject, provide } from 'vue'
 import { useFirebase } from './firebase.js'
-import { useAuth } from './auth.js'
 
 const CollectionSymbol = Symbol('FirebaseCollection')
 
 export function provideCollections(app) {
-  const provideFn = app ? app.provide : provide;
-  provideFn(CollectionSymbol, reactive({}))
+  app.provide(CollectionSymbol, reactive({}))
 }
 
 export function useCollection(name, filter) {
+  const { firestore } = useFirebase()
   const state = inject(CollectionSymbol)
 
   if (!state) {
     throw Error('No Collection provided')
   }
-
-  const { firestore } = useFirebase()
 
   let field = ''
   let value = ''
@@ -28,18 +25,12 @@ export function useCollection(name, filter) {
 
   const hash = `${name}-${field}-${value}`
 
-  const { uid } = useAuth()
-
   if (!state[hash]) {
     let collection = firestore.collection(name)
 
     state[hash] = {}
 
     watchEffect(() => {
-      if (!uid.value) {
-        return
-      }
-
       if (field) {
         collection = collection.where(field, '==', value)
       }

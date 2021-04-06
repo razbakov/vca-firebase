@@ -1,6 +1,6 @@
 import { reactive, toRefs, computed } from 'vue'
-import { useFirebase } from './firebase.js'
 import { useAuth } from './auth.js'
+import { useFirebase } from './firebase.js'
 
 export default function useDoc(name) {
   const { firestore } = useFirebase()

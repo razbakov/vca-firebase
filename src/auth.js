@@ -1,4 +1,5 @@
-import { reactive, toRefs, provide, inject } from 'vue'
+import { reactive, toRefs, inject } from 'vue'
+import { useFirebase } from './firebase'
 
 const AuthSymbol = Symbol('FirebaseAuth')
 
@@ -12,20 +13,18 @@ export function useAuth() {
   return result
 }
 
-export function provideAuth(firebase, app) {
-
-  const provideFn = app ? app.provide : provide;
-
+export function provideAuth(app) {
   const state = reactive({
     loading: true,
     signingIn: false,
     uid: null,
     user: null,
   })
+  const { auth } = useFirebase()
 
-  firebase.auth().onAuthStateChanged(setUser)
+  auth.onAuthStateChanged(setUser)
 
-  if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+  if (auth.isSignInWithEmailLink(window.location.href)) {
     signInWithEmailLink(window.location.href)
   }
 
@@ -37,12 +36,12 @@ export function provideAuth(firebase, app) {
   }
 
   async function signOut() {
-    await firebase.auth().signOut()
+    await auth.signOut()
     setUser(null)
   }
 
   async function signInAnonymously() {
-    await firebase.auth().signInAnonymously()
+    await auth.signInAnonymously()
   }
 
   async function signInWithEmailLink(link) {
@@ -54,7 +53,7 @@ export function provideAuth(firebase, app) {
       console.error('email is missing')
     }
 
-    await firebase.auth().signInWithEmailLink(email, link)
+    await auth.signInWithEmailLink(email, link)
   }
 
   async function sendSignInLinkToEmail(email) {
@@ -64,7 +63,7 @@ export function provideAuth(firebase, app) {
       handleCodeInApp: true,
     }
 
-    await firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
+    await auth.sendSignInLinkToEmail(email, actionCodeSettings)
   }
 
   function signInWithGoogle() {
@@ -72,10 +71,10 @@ export function provideAuth(firebase, app) {
 
     const provider = new firebase.auth.GoogleAuthProvider()
     provider.addScope('https://www.googleapis.com/auth/userinfo.email')
-    firebase.auth().signInWithRedirect(provider)
+    auth.signInWithRedirect(provider)
   }
 
-  provideFn(AuthSymbol, {
+  app.provide(AuthSymbol, {
     ...toRefs(state),
     signInWithGoogle,
     sendSignInLinkToEmail,
